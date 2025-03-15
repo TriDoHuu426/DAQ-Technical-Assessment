@@ -2,7 +2,33 @@ Use this file to write your answer to Stage 2 of the firmware tasks.
 
 CAN
 Q1:
+Advantages
+_ Robust and reliable: CAN has built-in error detection, correction, and fault confinement—critical in automotive and industrial systems.
+_ Noise immunity: Uses differential signaling (CAN_H & CAN_L), making it resistant to electromagnetic interference.
+_ Multi-Master, Peer-to-Peer: Any node can initiate communication. No need for a master-slave setup like SPI.
+_ Real-Time Communication: Deterministic timing via prioritized messages, suitable for control systems.
+_ Fault Tolerance: If one node fails, others continue working (node isolation via "bus-off").
+
+Disadvantages:
+_ Low Data Rate: Standard CAN: up to 1 Mbps. CAN FD: up to 8 Mbps, much slower than USB/PCIe.
+_ Limited Payload Size: 8 bytes per message in CAN, 64 bytes in CAN FD—small compared to other protocols.
+_ No Plug-and-Play: Unlike USB, CAN doesn’t inherently support automatic device recognition
+_ Limited Node Count: The more nodes you add, the more complicated timing and loading become.
+_ Bus Length Limits: As speed increases, maximum cable length decreases (e.g., 40m at 1 Mbps).
+_ Complex Arbitration on Heavy Traffic: Lower priority messages can suffer indefinite delays under high network load.
+
+CAN has a multi-drop bus topology, compared to point-to-point like other protocols
+CAN only has 8 bytes for data payload (CAN FD up to 64 bytes), much lower compared to USB, SPI
+CAN is a real-time communications, as opposed to best-effort like in USB or large bandwidth for PCIe.
+CAN can cover large distance (up to 40m @ 1Mbps)
 
 Q2:
+Redback chose CAN because it is industry norm to use it in vehicle and automation control networks. 
+It is also essential for DAQ system as it requires real-time communications between the sensors and the database.
+It also offers a robust error detection and recovery
 
-STM32 Chip Selection
+STM32 Chip Selection: https://www.st.com/en/microcontrollers-microprocessors/stm32f767bi.html
+
+STM32F767BI is the chip that I have selected. The chip meet most of the requirements, except the number of 16-bit timers reaches 12. The power requirement is at most 1.512 mW, at least 0.714 mW. 
+For the size, depending on the package, it can reach up to 28 x 28 mm
+Price: $22.25
